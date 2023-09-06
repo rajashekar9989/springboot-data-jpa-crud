@@ -20,91 +20,66 @@ import com.example.demo.repository.EmployeeRepository;
 @RestController
 @RequestMapping("/Employee")
 public class HomeController {
-	
-	
+
 	@Autowired
-	 private EmployeeRepository employeerepository;
-	
-	
+	private EmployeeRepository employeerepository;
+
 	Employee employee;
-	
+
 	@GetMapping("/home")
 	public String index() {
-		
-		return " welcome to spring boot crud application ! " ;
+
+		return " welcome to spring boot crud application ! ";
 	}
-	
-	
-	
-	
+
 	@PostMapping("/save")
-	public Employee saveEmployee( @RequestBody  Employee employee) {
-		
+	public Employee saveEmployee(@RequestBody Employee employee) {
+
 		employeerepository.save(employee);
-		
+
 		return employee;
-		
 
 	}
-	
-	
+
 	@GetMapping("/getById/{empid}")
 	public Employee getEmployeeByid(@PathVariable int empid) {
-		
-		
-		Optional<Employee> emp =employeerepository.findById(empid);
-		
-		Employee emp1=emp.get();
-		
-		return emp1; 
-		
-		
-		
+
+		Optional<Employee> emp = employeerepository.findById(empid);
+
+		Employee emp1 = emp.get();
+
+		return emp1;
+
 	}
-	
-	
-	@GetMapping("/get")
-	public List<Employee> getAll(){
-		
+
+	@GetMapping("/getAll")
+	public List<Employee> getAll() {
+
 		List<Employee> emplist = employeerepository.findAll();
-		
+
 		return emplist;
-		 
+
 	}
-	
-	
+
 	@DeleteMapping("/deleteEmployee/{empid}")
 	public String deleteEmployee(@PathVariable int empid) {
-		
-		Employee employee =employeerepository.findById(empid).get();
-		
-		if(employee!=null) 
-			
+
+		Employee employee = employeerepository.findById(empid).get();
+
+		if (employee != null)
+
 			employeerepository.delete(employee);
-		
+
 		return "Employee deleted succesfully";
-		
-		
-		
-}
-	
-	
-	
+
+	}
+
 	@PutMapping("/updateEmployee")
 	public Employee updateEmployee(@RequestBody Employee employee) {
-		
+
 		employeerepository.save(employee);
-		
+
 		return employee;
-		
-		
+
 	}
 }
-	
-	
-	
-	
-	
-	
-
-
